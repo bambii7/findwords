@@ -1,25 +1,25 @@
-import sequtils, strutils, os, streams
+import sequtils, strutils, os
 
-var temp_string = ""
+proc tidy(str: string): string =
+  str.strip.toLowerAscii
 
 proc matcher(str: string, search: string): bool =
-  temp_string = toLowerAscii(str.strip)
+  var temp_string = str
   for character in search:
-    let found = temp_string.find(char(character))
+    let found = temp_string.find(character)
     if(found > -1):
-      temp_string.delete(found, 0)
+      temp_string.delete(found, found)
   return temp_string.len == 0
 
 when isMainModule:
   if paramCount() == 2:
-    let file:string = paramStr(1)
-    let search:string = paramStr(2).toLowerAscii
+    let filename:string = paramStr(1)
+    let search:string = paramStr(2).tidy
 
-    var strm = newFileStream(file, fmRead)
-    var word = ""
-    
-    if not isNil(strm):
-      while strm.readLine(word):
-        if(matcher(word, search)):
-          echo word
-      strm.close()
+    var lines = 0
+    for word in lines(filename):
+      lines.inc
+      if(matcher(word.tidy, search)):
+        echo word
+
+    echo "lines: ", $lines
