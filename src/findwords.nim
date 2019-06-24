@@ -13,7 +13,7 @@ proc matcher(str: string, search: string): bool =
 when isMainModule:
   if paramCount() == 2:
     let file:string = paramStr(1)
-    let search:string = paramStr(2)
+    let search:string = paramStr(2).toLowerAscii
 
     var strm = newFileStream(file, fmRead)
     var word = ""
