@@ -17,9 +17,12 @@ when isMainModule:
     let search:string = paramStr(2).tidy
 
     var lines = 0
+    var matches = 0
     for word in lines(filename):
       lines.inc
       if(matcher(word.tidy, search)):
+        matches.inc
         echo word
 
     echo "lines: ", $lines
+    echo "match: ", $matches
