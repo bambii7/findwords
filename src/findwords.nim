@@ -21,17 +21,24 @@ proc stringCompareHighToLow(x, y: string): int =
   else:
     1
 
+proc paramOrDefault(paramIndex: int, default: int): int =
+  try:
+    result = parseInt(paramStr(paramIndex))
+  except:
+    result = default
+
 when isMainModule:
-  if paramCount() == 2:
+  if paramCount() == 2 or paramCount() == 3:
     let filename:string = paramStr(1)
     let search:string = paramStr(2).tidy
+    let minLength = paramOrDefault(3, 3)
 
     var lineCount = 0
     var matchCount = 0
     var matches: seq[string] = @[]
     for word in lines(filename):
       lineCount.inc
-      if(matcher(word.tidy, search)):
+      if(word.len >= minLength and matcher(word.tidy, search)):
         matches.add(word.tidy)
         matchCount.inc
 
