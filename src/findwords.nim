@@ -1,4 +1,4 @@
-import sequtils, strutils, os
+import sequtils, strutils, os, algorithm
 
 proc tidy(s: string): string =
   s.strip.toLowerAscii
@@ -15,6 +15,12 @@ proc printResults(results: seq[string]): void =
   for word in results:
     echo word
 
+proc stringCompareHighToLow(x, y: string): int =
+  if x.len() > y.len() or x.len() == y.len():
+    -1
+  else:
+    1
+
 when isMainModule:
   if paramCount() == 2:
     let filename:string = paramStr(1)
@@ -29,6 +35,7 @@ when isMainModule:
         matches.add(word.tidy)
         matchCount.inc
 
+    matches.sort(stringCompareHighToLow)
     printResults(matches)
 
     echo "lines searched: ", $lineCount
