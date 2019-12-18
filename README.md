@@ -31,4 +31,4 @@ roof
 The accuracy is dependant on the ditionary supplied.
 Useful for word search games ;)
 
-There are sample dictionary include, others are available https://github.com/dwyl/english-words
+There are sample dictionares included but there others are available https://github.com/dwyl/english-words
