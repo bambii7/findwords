@@ -1,7 +1,7 @@
 import sequtils, strutils, os
 
-proc tidy(str: string): string =
-  str.strip.toLowerAscii
+proc tidy(s: string): string =
+  s.strip.toLowerAscii
 
 proc matcher(str: string, search: string): bool =
   var temp_string = str
@@ -16,13 +16,13 @@ when isMainModule:
     let filename:string = paramStr(1)
     let search:string = paramStr(2).tidy
 
-    var lines = 0
-    var matches = 0
+    var lineCount = 0
+    var matchCount = 0
     for word in lines(filename):
-      lines.inc
+      lineCount.inc
       if(matcher(word.tidy, search)):
-        matches.inc
+        matchCount.inc
         echo word
 
-    echo "lines: ", $lines
-    echo "match: ", $matches
+    echo "lines searched: ", $lineCount
+    echo "matched: ", $matchCount
